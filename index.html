@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>content MATTER — Digital Marketing Agency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #3CBFB0;
+    --navy: #2C3340;
+    --cream: #F5F2EA;
+    --white: #FFFFFF;
+    --navy-light: #3a4355;
+    --teal-dark: #2ea898;
+    --text-muted: #7a8394;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CURSOR */
+  .cursor {
+    width: 52px;
+    height: 52px;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(60,191,176,0.4), 0 0 0 1.5px rgba(60,191,176,0.3);
+    transform: translate(-200px, -200px);
+  }
+  .cursor img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cursor-ring {
+    width: 72px; height: 72px;
+    border: 1.5px solid rgba(60,191,176,0.35);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.6;
+    transform: translate(-200px, -200px);
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 60px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(44, 51, 64, 0.97);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 40px rgba(0,0,0,0.2);
+  }
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal);
+    color: var(--navy) !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    letter-spacing: 0.06em !important;
+    transition: background 0.2s ease !important;
+  }
+  .nav-cta:hover { background: var(--teal-dark) !important; color: var(--white) !important; }
+
+  /* PAGE SECTIONS */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ========================
+     HOME PAGE
+  ======================== */
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 60px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(60,191,176,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(60,191,176,0.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .hero-orb {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(60,191,176,0.15) 0%, transparent 70%);
+    right: -100px; top: -100px;
+    border-radius: 50%;
+  }
+  .hero-orb-2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(60,191,176,0.08) 0%, transparent 70%);
+    left: 20%; bottom: 0;
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--teal);
+    display: block;
+  }
+  .hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 7vw, 100px);
+    font-weight: 900;
+    line-height: 1.0;
+    color: var(--white);
+    max-width: 900px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-headline em {
+    font-style: italic;
+    color: var(--teal);
+  }
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.55);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-top: 32px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 52px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--teal);
+    color: var(--navy);
+    padding: 16px 40px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--teal-dark); color: var(--white); transform: translateY(-2px); }
+  .btn-ghost {
+    border: 1px solid rgba(255,255,255,0.25);
+    color: rgba(255,255,255,0.75);
+    padding: 16px 40px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+  .hero-stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    margin-top: 8px;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--cream);
+    padding: 28px 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(44,51,64,0.08);
+    border-bottom: 1px solid rgba(44,51,64,0.08);
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+  .marquee-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding: 0 40px 0 60px;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(44,51,64,0.12);
+    margin-right: 0;
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: marquee 22s linear infinite;
+    flex: 1;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 44px;
+    color: rgba(44,51,64,0.55);
+    transition: color 0.2s ease;
+  }
+  .brand-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    opacity: 0.75;
+    transition: opacity 0.2s ease;
+  }
+  .brand-logo svg {
+    width: 100%;
+    height: 100%;
+  }
+  .brand-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    color: rgba(44,51,64,0.45);
+    transition: color 0.2s ease;
+  }
+  .marquee-item::after {
+    content: '·';
+    font-size: 20px;
+    color: var(--teal);
+    opacity: 0.4;
+    margin-left: 0;
+    padding-left: 44px;
+  }
+  .marquee-track:hover .brand-logo { opacity: 1; }
+  .marquee-track:hover .brand-name { color: rgba(44,51,64,0.7); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-33.33%); } }
+
+  /* SERVICES PREVIEW */
+  .section {
+    padding: 120px 60px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--teal);
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 60px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--navy);
+    max-width: 600px;
+  }
+  .section-title em { font-style: italic; color: var(--teal); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .service-card {
+    background: var(--navy);
+    padding: 48px 40px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--teal);
+    transition: width 0.4s ease;
+  }
+  .service-card:hover::before { width: 100%; }
+  .service-card:hover { background: var(--navy-light); }
+  .service-num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    margin-bottom: 32px;
+  }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .service-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+  .service-arrow {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  /* WORK PREVIEW */
+  .work-preview { background: var(--cream); }
+  .work-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 60px;
+  }
+  .work-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+  }
+  .work-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    cursor: none;
+    background: var(--navy);
+  }
+  .work-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+  .work-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .work-card-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.6s ease;
+  }
+  .work-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(44,51,64,0.95) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 36px;
+  }
+  .work-card:hover .work-overlay { opacity: 1; }
+  .work-card:hover .work-card-bg { transform: scale(1.05); }
+  .work-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .work-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .work-result {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 8px;
+  }
+
+  /* COLOR BLOCKS for work cards */
+  .bg-1 { background: linear-gradient(135deg, #1a2332 0%, #2C3340 100%); }
+  .bg-2 { background: linear-gradient(135deg, #0d3d38 0%, #1a5c55 100%); }
+  .bg-3 { background: linear-gradient(135deg, #2a1f3d 0%, #3d2d5c 100%); }
+  .work-card-bg.bg-1, .work-card-bg.bg-2, .work-card-bg.bg-3 {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .card-icon {
+    font-size: 80px;
+    opacity: 0.15;
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: var(--teal);
+  }
+
+  /* PROOF / TESTIMONIAL */
+  .proof-section {
+    background: var(--navy);
+    padding: 100px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .proof-bg-text {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 300px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    top: -60px; right: -20px;
+    line-height: 1;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+  }
+  .testimonial-card {
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 40px 36px;
+    position: relative;
+    transition: border-color 0.3s ease;
+  }
+  .testimonial-card:hover { border-color: var(--teal); }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    color: var(--teal);
+    line-height: 0.8;
+    margin-bottom: 20px;
+    opacity: 0.6;
+  }
+  .testimonial-text {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.75;
+    font-style: italic;
+  }
+  .testimonial-author {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .author-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--white);
+  }
+  .author-title {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--teal);
+    padding: 80px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cta-band h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3vw, 48px);
+    font-weight: 700;
+    color: var(--navy);
+    max-width: 600px;
+    line-height: 1.2;
+  }
+  .btn-dark {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 44px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .btn-dark:hover { background: #1a1f28; transform: translateY(-2px); }
+
+  /* ========================
+     SERVICES PAGE
+  ======================== */
+  .page-hero {
+    background: var(--navy);
+    padding: 160px 60px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(60,191,176,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(60,191,176,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .page-hero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+  .page-hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(40px, 5vw, 72px);
+    font-weight: 900;
+    color: var(--white);
+    max-width: 700px;
+    line-height: 1.1;
+  }
+  .page-hero-title em { font-style: italic; color: var(--teal); }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    max-width: 500px;
+    margin-top: 24px;
+    line-height: 1.7;
+  }
+
+  .services-full {
+    padding: 100px 60px;
+  }
+  .service-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    padding: 80px 0;
+    border-bottom: 1px solid rgba(44,51,64,0.1);
+  }
+  .service-row:last-child { border-bottom: none; }
+  .service-row.reverse { direction: rtl; }
+  .service-row.reverse > * { direction: ltr; }
+  .service-visual {
+    background: var(--navy);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-visual-inner {
+    text-align: center;
+    z-index: 1;
+  }
+  .service-visual-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: rgba(60,191,176,0.12);
+    line-height: 1;
+  }
+  .service-visual-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-top: -16px;
+  }
+  .service-content .section-label { margin-bottom: 16px; }
+  .service-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .service-content p {
+    font-size: 15px;
+    font-weight: 300;
+    color: #5a6475;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 28px;
+  }
+  .tag {
+    background: rgba(60,191,176,0.1);
+    color: var(--teal);
+    border: 1px solid rgba(60,191,176,0.25);
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ========================
+     WORK PAGE
+  ======================== */
+  .work-full { padding: 60px 60px 120px; background: var(--cream); }
+  .work-filters {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 48px;
+  }
+  .filter-btn {
+    background: none;
+    border: 1px solid rgba(44,51,64,0.15);
+    color: var(--text-muted);
+    padding: 10px 22px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.2s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--navy);
+    color: var(--teal);
+    border-color: var(--navy);
+  }
+  .work-full-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .case-card {
+    background: var(--navy);
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .case-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.6s ease;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .case-icon { font-size: 100px; font-weight: 900; color: var(--teal); opacity: 0.1; font-family: 'Playfair Display', serif; }
+  .case-card:hover .case-bg { transform: scale(1.06); }
+  .case-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(44,51,64,1) 0%, rgba(44,51,64,0) 50%);
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .case-category {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .case-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .case-metric {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+  }
+  .case-metric strong { color: var(--teal); }
+
+  /* ========================
+     ABOUT PAGE
+  ======================== */
+  .about-intro {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+  .about-intro-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 28px;
+  }
+  .about-intro-text h2 em { font-style: italic; color: var(--teal); }
+  .about-intro-text p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #5a6475;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .about-visual {
+    background: var(--navy);
+    aspect-ratio: 3/4;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .about-visual-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, var(--navy) 0%, #1a2332 100%);
+  }
+  .about-visual-text {
+    position: relative;
+    text-align: center;
+  }
+  .about-visual-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: var(--teal);
+    opacity: 0.2;
+    line-height: 1;
+  }
+  .about-values {
+    background: var(--navy);
+    padding: 100px 60px;
+  }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+  .value-card {
+    background: rgba(255,255,255,0.03);
+    padding: 48px 36px;
+    border-top: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .value-card:hover { border-top-color: var(--teal); background: rgba(255,255,255,0.06); }
+  .value-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  .value-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .value-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+  }
+  .team-section { padding: 100px 60px; }
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+  .team-card {
+    cursor: none;
+    transition: transform 0.3s ease;
+  }
+  .team-card:hover { transform: translateY(-8px); }
+  .team-photo {
+    aspect-ratio: 3/4;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 56px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .team-photo::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .team-card:hover .team-photo::after { transform: scaleX(1); }
+  .team-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .team-role {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+
+  /* ========================
+     CONTACT PAGE
+  ======================== */
+  .contact-layout {
+    padding: 100px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .contact-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 54px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .contact-info h2 em { font-style: italic; color: var(--teal); }
+  .contact-info p {
+    font-size: 16px;
+    font-weight: 300;
+    color: #5a6475;
+    line-height: 1.8;
+    margin-bottom: 48px;
+  }
+  .contact-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(44,51,64,0.1);
+  }
+  .contact-detail:last-child { border-bottom: none; }
+  .contact-detail-icon {
+    width: 44px; height: 44px;
+    background: rgba(60,191,176,0.1);
+    border: 1px solid rgba(60,191,176,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .contact-detail-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .contact-detail-value {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--navy);
+  }
+  .contact-form {
+    background: var(--navy);
+    padding: 52px 48px;
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 36px;
+  }
+  .form-group { margin-bottom: 24px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 8px;
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 14px 16px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    transition: border-color 0.2s ease;
+    appearance: none;
+    cursor: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus {
+    outline: none;
+    border-color: var(--teal);
+    background: rgba(60,191,176,0.05);
+  }
+  .form-textarea { resize: vertical; min-height: 120px; }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .form-select option { background: var(--navy); color: var(--white); }
+  .btn-submit {
+    width: 100%;
+    background: var(--teal);
+    color: var(--navy);
+    padding: 18px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: none;
+    cursor: none;
+    margin-top: 8px;
+    transition: all 0.25s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .btn-submit:hover { background: var(--teal-dark); color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    background: #1a1f28;
+    padding: 80px 60px 40px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand-name {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .footer-brand-name span {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+  .footer-col-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    transition: color 0.2s ease;
+    cursor: none;
+  }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+  }
+  .footer-socials {
+    display: flex;
+    gap: 16px;
+  }
+  .social-link {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    cursor: none;
+  }
+  .social-link:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* NAV ACTIVE */
+  .nav-links a.active { color: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor: Real CM Logo -->
+<div class="cursor" id="cursor"><img src="data:image/jpeg;base64,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" alt="CM"/></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo" onclick="showPage('home')">content <span>MATTER</span></a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')" data-page="home">Home</a></li>
+    <li><a href="#" onclick="showPage('services')" data-page="services">Services</a></li>
+    <li><a href="#" onclick="showPage('work')" data-page="work">Work</a></li>
+    <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a href="#" class="nav-cta" onclick="showPage('contact')" data-page="contact">Start a Project</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-orb-2"></div>
+    <div class="hero-eyebrow">Digital Marketing Agency</div>
+    <h1 class="hero-headline">Marketing that<br><em>actually</em><br>moves the needle.</h1>
+    <p class="hero-sub">Strategy-first digital marketing for brands that want results — not reports. We build content, campaigns, and channels that compound.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="showPage('contact')">Start a Project</a>
+      <a href="#" class="btn-ghost" onclick="showPage('work')">See Our Work</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">140+</div>
+        <div class="stat-label">Brands Grown</div>
+      </div>
+      <div>
+        <div class="stat-num">$2.4M</div>
+        <div class="stat-label">Revenue Driven</div>
+      </div>
+      <div>
+        <div class="stat-num">6×</div>
+        <div class="stat-label">Average ROAS</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Retention</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-section">
+    <div class="marquee-label">Trusted by</div>
+    <div class="marquee-track">
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#000"/><rect x="11" y="11" width="26" height="26" rx="3" fill="#fff"/><rect x="18" y="18" width="12" height="12" rx="2" fill="#000"/></svg></span>
+        <span class="brand-name">Square</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 100 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="28" font-family="Arial" font-weight="900" font-size="32" fill="#FF6B00">Toast</text></svg></span>
+        <span class="brand-name">Toast</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 160 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="26" font-family="Arial" font-weight="700" font-size="22" fill="#F5C842">Friendship</text><text x="0" y="36" font-family="Arial" font-weight="400" font-size="14" fill="#F5C842" letter-spacing="2">FESTIVAL</text></svg></span>
+        <span class="brand-name">Friendship Festival</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" font-family="Georgia,serif" font-weight="700" font-size="15" fill="#3CBFB0" letter-spacing="1">A LITTLE</text><text x="0" y="38" font-family="Georgia,serif" font-weight="400" font-size="22" fill="#3CBFB0" letter-spacing="3">Tea</text></svg></span>
+        <span class="brand-name">A Little Tea</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#FF3008"/><path d="M10 24c0-7.7 6.3-14 14-14h4v5h-4c-5 0-9 4-9 9s4 9 9 9h4v5h-4c-7.7 0-14-6.3-14-14z" fill="#fff"/><path d="M28 17h-8v14h8c3.9 0 7-3.1 7-7s-3.1-7-7-7z" fill="#fff"/></svg></span>
+        <span class="brand-name">DoorDash</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#06C167"/><text x="6" y="22" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Uber</text><text x="6" y="38" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Eats</text></svg></span>
+        <span class="brand-name">Uber Eats</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="34" r="8" fill="#FBBC04"/><circle cx="34" cy="34" r="8" fill="#34A853"/><circle cx="24" cy="16" r="8" fill="#4285F4"/></svg></span>
+        <span class="brand-name">Google Ads</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#0866FF"/><path d="M8 24c0-4 2.5-7 5.5-7 1.8 0 3.2 1 4.5 3l6 10 6-10c1.3-2 2.7-3 4.5-3 3 0 5.5 3 5.5 7 0 5-3 9-6.5 9-1.5 0-2.8-.7-4-2l-5.5-8-5.5 8c-1.2 1.3-2.5 2-4 2C11 33 8 29 8 24z" fill="#fff"/></svg></span>
+        <span class="brand-name">Meta</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#000"/><rect x="11" y="11" width="26" height="26" rx="3" fill="#fff"/><rect x="18" y="18" width="12" height="12" rx="2" fill="#000"/></svg></span>
+        <span class="brand-name">Square</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 100 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="28" font-family="Arial" font-weight="900" font-size="32" fill="#FF6B00">Toast</text></svg></span>
+        <span class="brand-name">Toast</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 160 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="26" font-family="Arial" font-weight="700" font-size="22" fill="#F5C842">Friendship</text><text x="0" y="36" font-family="Arial" font-weight="400" font-size="14" fill="#F5C842" letter-spacing="2">FESTIVAL</text></svg></span>
+        <span class="brand-name">Friendship Festival</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" font-family="Georgia,serif" font-weight="700" font-size="15" fill="#3CBFB0" letter-spacing="1">A LITTLE</text><text x="0" y="38" font-family="Georgia,serif" font-weight="400" font-size="22" fill="#3CBFB0" letter-spacing="3">Tea</text></svg></span>
+        <span class="brand-name">A Little Tea</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#FF3008"/><path d="M10 24c0-7.7 6.3-14 14-14h4v5h-4c-5 0-9 4-9 9s4 9 9 9h4v5h-4c-7.7 0-14-6.3-14-14z" fill="#fff"/><path d="M28 17h-8v14h8c3.9 0 7-3.1 7-7s-3.1-7-7-7z" fill="#fff"/></svg></span>
+        <span class="brand-name">DoorDash</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#06C167"/><text x="6" y="22" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Uber</text><text x="6" y="38" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Eats</text></svg></span>
+        <span class="brand-name">Uber Eats</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="34" r="8" fill="#FBBC04"/><circle cx="34" cy="34" r="8" fill="#34A853"/><circle cx="24" cy="16" r="8" fill="#4285F4"/></svg></span>
+        <span class="brand-name">Google Ads</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#0866FF"/><path d="M8 24c0-4 2.5-7 5.5-7 1.8 0 3.2 1 4.5 3l6 10 6-10c1.3-2 2.7-3 4.5-3 3 0 5.5 3 5.5 7 0 5-3 9-6.5 9-1.5 0-2.8-.7-4-2l-5.5-8-5.5 8c-1.2 1.3-2.5 2-4 2C11 33 8 29 8 24z" fill="#fff"/></svg></span>
+        <span class="brand-name">Meta</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="8" fill="#000"/><rect x="11" y="11" width="26" height="26" rx="3" fill="#fff"/><rect x="18" y="18" width="12" height="12" rx="2" fill="#000"/></svg></span>
+        <span class="brand-name">Square</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 100 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="28" font-family="Arial" font-weight="900" font-size="32" fill="#FF6B00">Toast</text></svg></span>
+        <span class="brand-name">Toast</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 160 36" xmlns="http://www.w3.org/2000/svg"><text x="0" y="26" font-family="Arial" font-weight="700" font-size="22" fill="#F5C842">Friendship</text><text x="0" y="36" font-family="Arial" font-weight="400" font-size="14" fill="#F5C842" letter-spacing="2">FESTIVAL</text></svg></span>
+        <span class="brand-name">Friendship Festival</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="0" y="20" font-family="Georgia,serif" font-weight="700" font-size="15" fill="#3CBFB0" letter-spacing="1">A LITTLE</text><text x="0" y="38" font-family="Georgia,serif" font-weight="400" font-size="22" fill="#3CBFB0" letter-spacing="3">Tea</text></svg></span>
+        <span class="brand-name">A Little Tea</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#FF3008"/><path d="M10 24c0-7.7 6.3-14 14-14h4v5h-4c-5 0-9 4-9 9s4 9 9 9h4v5h-4c-7.7 0-14-6.3-14-14z" fill="#fff"/><path d="M28 17h-8v14h8c3.9 0 7-3.1 7-7s-3.1-7-7-7z" fill="#fff"/></svg></span>
+        <span class="brand-name">DoorDash</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#06C167"/><text x="6" y="22" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Uber</text><text x="6" y="38" font-family="Arial" font-weight="900" font-size="14" fill="#fff">Eats</text></svg></span>
+        <span class="brand-name">Uber Eats</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="34" r="8" fill="#FBBC04"/><circle cx="34" cy="34" r="8" fill="#34A853"/><circle cx="24" cy="16" r="8" fill="#4285F4"/></svg></span>
+        <span class="brand-name">Google Ads</span>
+      </span>
+      <span class="marquee-item">
+        <span class="brand-logo"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect width="48" height="48" rx="10" fill="#0866FF"/><path d="M8 24c0-4 2.5-7 5.5-7 1.8 0 3.2 1 4.5 3l6 10 6-10c1.3-2 2.7-3 4.5-3 3 0 5.5 3 5.5 7 0 5-3 9-6.5 9-1.5 0-2.8-.7-4-2l-5.5-8-5.5 8c-1.2 1.3-2.5 2-4 2C11 33 8 29 8 24z" fill="#fff"/></svg></span>
+        <span class="brand-name">Meta</span>
+      </span>
+    </div>
+  </div>
+
+  <section class="section" style="background: var(--cream);">
+    <div class="section-label">What We Do</div>
+    <h2 class="section-title">Every channel.<br><em>One agency.</em></h2>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-num">01</div>
+        <div class="service-title">SEO & Content</div>
+        <p class="service-desc">Rank for the terms that convert. We build content ecosystems that grow organic traffic month over month.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">02</div>
+        <div class="service-title">Paid Media</div>
+        <p class="service-desc">Meta, Google, TikTok, LinkedIn — we run campaigns that maximize return and minimize wasted spend.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">03</div>
+        <div class="service-title">Social & Brand</div>
+        <p class="service-desc">A social presence built on strategy, not volume. We build audiences that actually turn into customers.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">04</div>
+        <div class="service-title">Email Marketing</div>
+        <p class="service-desc">Sequences, flows, and campaigns that nurture leads and drive repeat revenue from your existing list.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">05</div>
+        <div class="service-title">Brand Strategy</div>
+        <p class="service-desc">Positioning, messaging, and ICP development that gives every channel a sharper edge.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+      <div class="service-card reveal">
+        <div class="service-num">06</div>
+        <div class="service-title">Analytics & Reporting</div>
+        <p class="service-desc">No vanity metrics. Clear dashboards, clean attribution, and honest reporting on what's working.</p>
+        <a class="service-arrow" href="#" onclick="showPage('services')">Explore →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section work-preview">
+    <div class="work-header">
+      <div>
+        <div class="section-label">Selected Work</div>
+        <h2 class="section-title">Results we're<br><em>proud to show.</em></h2>
+      </div>
+      <a href="#" class="btn-primary" onclick="showPage('work')">All Case Studies</a>
+    </div>
+    <div class="work-grid">
+      <div class="work-card reveal">
+        <div class="work-card-bg bg-1"><span class="card-icon">I</span></div>
+        <div class="work-overlay">
+          <div class="work-tag">SEO + Content</div>
+          <div class="work-name">Ironclad Finance</div>
+          <div class="work-result">+312% organic traffic in 8 months</div>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-card-bg bg-2"><span class="card-icon">V</span></div>
+        <div class="work-overlay">
+          <div class="work-tag">Paid Media</div>
+          <div class="work-name">Verra Skincare</div>
+          <div class="work-result">7.2× ROAS on Meta campaigns</div>
+        </div>
+      </div>
+      <div class="work-card reveal">
+        <div class="work-card-bg bg-3"><span class="card-icon">N</span></div>
+        <div class="work-overlay">
+          <div class="work-tag">Email + Social</div>
+          <div class="work-name">Northgate Studio</div>
+          <div class="work-result">$480K revenue from email in Q3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-section reveal">
+    <div class="proof-bg-text">RESULTS</div>
+    <div class="section-label" style="color: rgba(255,255,255,0.5);">Client Feedback</div>
+    <h2 class="section-title" style="color: var(--white); max-width:500px;">What our clients<br><em>actually say.</em></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">content MATTER didn't just run our ads — they rebuilt our entire acquisition strategy. We went from $40K/month in ad spend with 1.8× ROAS to $120K/month at 6.4×.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Sarah Chen</div>
+          <div class="author-title">CMO, Verra Skincare</div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">The SEO results speak for themselves. We rank on page one for 47 of our target keywords now. The content team understands our industry at a level we didn't expect.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Marcus Webb</div>
+          <div class="author-title">Founder, Ironclad Finance</div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="quote-mark">"</div>
+        <p class="testimonial-text">Direct, strategic, no fluff. They told us what was wrong with our email program on the first call, fixed it in 30 days, and we haven't looked back.</p>
+        <div class="testimonial-author">
+          <div class="author-name">Priya Nair</div>
+          <div class="author-title">Head of Growth, Northgate Studio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band reveal">
+    <h2>Ready to grow? Let's talk about what's possible.</h2>
+    <a href="#" class="btn-dark" onclick="showPage('contact')">Book a Strategy Call →</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">content <span>MATTER</span></div>
+        <p class="footer-tagline">Strategy-first digital marketing for brands that want compound growth, not vanity metrics.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">SEO & Content</a></li>
+          <li><a href="#" onclick="showPage('services')">Paid Media</a></li>
+          <li><a href="#" onclick="showPage('services')">Social Strategy</a></li>
+          <li><a href="#" onclick="showPage('services')">Email Marketing</a></li>
+          <li><a href="#" onclick="showPage('services')">Brand Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('work')">Case Studies</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><span class="__cf_email__" data-cfemail="d6beb3babab996b5b9b8a2b3b8a2bbb7a2a2b3a4f8b5b9">[email&#160;protected]</span></a></li>
+          <li><a href="#">+1 (555) 010-2030</a></li>
+          <li><a href="#" onclick="showPage('contact')">Start a Project</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 content MATTER. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">x</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== SERVICES PAGE ===== -->
+<div class="page" id="page-services">
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-eyebrow">What We Do</div>
+    <h1 class="page-hero-title">Services built<br>for <em>real growth.</em></h1>
+    <p class="page-hero-sub">No bloated retainers. No mystery deliverables. Every service we offer is tied to a clear outcome.</p>
+  </section>
+
+  <div class="services-full">
+    <div class="service-row reveal">
+      <div class="service-visual">
+        <div class="service-visual-inner">
+          <div class="service-visual-num">01</div>
+          <div class="service-visual-label">SEO & Content</div>
+        </div>
+      </div>
+      <div class="service-content">
+        <div class="section-label">Channel 01</div>
+        <h3>SEO & Content Marketing</h3>
+        <p>Organic search is the highest-ROI channel for most businesses — and the most neglected. We build content programs that rank for the right terms, attract the right people, and convert.</p>
+        <p>From keyword research and topic clusters to technical audits and link building, we run the full stack. Expect transparent reporting and a clear connection between our work and your pipeline.</p>
+        <div class="service-tags">
+          <span class="tag">Keyword Research</span>
+          <span class="tag">Technical SEO</span>
+          <span class="tag">Content Strategy</span>
+          <span class="tag">Pillar Pages</span>
+          <span class="tag">Link Building</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-row reverse reveal">
+      <div class="service-visual" style="background: #0d3d38;">
+        <div class="service-visual-inner">
+          <div class="service-visual-num">02</div>
+          <div class="service-visual-label">Paid Media</div>
+        </div>
+      </div>
+      <div class="service-content">
+        <div class="section-label">Channel 02</div>
+        <h3>Paid Media & Performance</h3>
+        <p>We run paid campaigns on Meta, Google, TikTok, and LinkedIn — with one priority: return on ad spend. Every dollar is tracked, every creative is tested, every decision is data-driven.</p>
+        <p>We don't just manage budgets. We build acquisition systems that scale predictably as you grow.</p>
+        <div class="service-tags">
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Google Search</span>
+          <span class="tag">TikTok Ads</span>
+          <span class="tag">LinkedIn Ads</span>
+          <span class="tag">Retargeting</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-visual" style="background: #2a1f3d;">
+        <div class="service-visual-inner">
+          <div class="service-visual-num">03</div>
+          <div class="service-visual-label">Email Marketing</div>
+        </div>
+      </div>
+      <div class="service-content">
+        <div class="section-label">Channel 03</div>
+        <h3>Email Marketing & Automation</h3>
+        <p>Your email list is the only audience you actually own. We build flows, sequences, and campaigns that turn subscribers into buyers — and buyers into repeat customers.</p>
+        <p>Whether you're on Klaviyo, Mailchimp, or HubSpot, we'll build the infrastructure and write the copy that converts.</p>
+        <div class="service-tags">
+          <span class="tag">Welcome Sequences</span>
+          <span class="tag">Abandoned Cart</span>
+          <span class="tag">Win-Back Flows</span>
+          <span class="tag">Broadcast Campaigns</span>
+          <span class="tag">Klaviyo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-row reverse reveal">
+      <div class="service-visual" style="background: #1a2332;">
+        <div class="service-visual-inner">
+          <div class="service-visual-num">04</div>
+          <div class="service-visual-label">Brand Strategy</div>
+        </div>
+      </div>
+      <div class="service-content">
+        <div class="section-label">Channel 04</div>
+        <h3>Brand Strategy & Positioning</h3>
+        <p>Bad positioning makes every other marketing dollar less effective. We start with clarity on who you are, who you're for, and what makes you the only rational choice for your ideal customer.</p>
+        <p>Messaging architecture, ICP development, competitive differentiation, and brand story — built to last, not just sound good.</p>
+        <div class="service-tags">
+          <span class="tag">ICP Development</span>
+          <span class="tag">Messaging Architecture</span>
+          <span class="tag">Value Proposition</span>
+          <span class="tag">Brand Story</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Not sure which service you need? Start with a strategy call.</h2>
+    <a href="#" class="btn-dark" onclick="showPage('contact')">Book a Call →</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">content <span>MATTER</span></div>
+        <p class="footer-tagline">Strategy-first digital marketing for brands that want compound growth, not vanity metrics.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">SEO & Content</a></li>
+          <li><a href="#" onclick="showPage('services')">Paid Media</a></li>
+          <li><a href="#" onclick="showPage('services')">Email Marketing</a></li>
+          <li><a href="#" onclick="showPage('services')">Brand Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('work')">Case Studies</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><span class="__cf_email__" data-cfemail="3a525f5656557a5955544e5f544e575b4e4e5f48145955">[email&#160;protected]</span></a></li>
+          <li><a href="#" onclick="showPage('contact')">Start a Project</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 content MATTER. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">x</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== WORK PAGE ===== -->
+<div class="page" id="page-work">
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-eyebrow">Case Studies</div>
+    <h1 class="page-hero-title">Work we're<br><em>proud to show.</em></h1>
+    <p class="page-hero-sub">Results over aesthetics. Here's what we've built and what it moved.</p>
+  </section>
+
+  <div class="work-full">
+    <div class="work-filters">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">SEO</button>
+      <button class="filter-btn">Paid Media</button>
+      <button class="filter-btn">Email</button>
+      <button class="filter-btn">Brand</button>
+    </div>
+    <div class="work-full-grid">
+      <div class="case-card reveal">
+        <div class="case-bg bg-1"><span class="case-icon">I</span></div>
+        <div class="case-overlay">
+          <div class="case-category">SEO + Content</div>
+          <div class="case-title">Ironclad Finance</div>
+          <div class="case-metric"><strong>+312%</strong> organic traffic in 8 months</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-bg bg-2"><span class="case-icon">V</span></div>
+        <div class="case-overlay">
+          <div class="case-category">Paid Media</div>
+          <div class="case-title">Verra Skincare</div>
+          <div class="case-metric"><strong>7.2× ROAS</strong> on Meta campaigns</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-bg bg-3"><span class="case-icon">N</span></div>
+        <div class="case-overlay">
+          <div class="case-category">Email Marketing</div>
+          <div class="case-title">Northgate Studio</div>
+          <div class="case-metric"><strong>$480K</strong> email revenue in Q3</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-bg" style="background:linear-gradient(135deg,#1a3d2f,#2a5c44)"><span class="case-icon">A</span></div>
+        <div class="case-overlay">
+          <div class="case-category">Brand + Social</div>
+          <div class="case-title">Atlas Health</div>
+          <div class="case-metric"><strong>+89K</strong> Instagram followers in 6 months</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-bg" style="background:linear-gradient(135deg,#2d1a1a,#4d2a2a)"><span class="case-icon">R</span></div>
+        <div class="case-overlay">
+          <div class="case-category">Paid Media + Email</div>
+          <div class="case-title">Redline Motors</div>
+          <div class="case-metric"><strong>4.8× ROAS</strong> with 62% lower CPL</div>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <div class="case-bg" style="background:linear-gradient(135deg,#1a1f3d,#2a2f5c)"><span class="case-icon">C</span></div>
+        <div class="case-overlay">
+          <div class="case-category">SEO + Brand Strategy</div>
+          <div class="case-title">Cipher SaaS</div>
+          <div class="case-metric"><strong>220%</strong> increase in trial signups</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Want results like these? Let's scope your project.</h2>
+    <a href="#" class="btn-dark" onclick="showPage('contact')">Let's Talk →</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">content <span>MATTER</span></div>
+        <p class="footer-tagline">Strategy-first digital marketing for brands that want compound growth, not vanity metrics.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">SEO & Content</a></li>
+          <li><a href="#" onclick="showPage('services')">Paid Media</a></li>
+          <li><a href="#" onclick="showPage('services')">Email Marketing</a></li>
+          <li><a href="#" onclick="showPage('services')">Brand Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('work')">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><span class="__cf_email__" data-cfemail="cea6aba2a2a18eada1a0baaba0baa3afbabaabbce0ada1">[email&#160;protected]</span></a></li>
+          <li><a href="#" onclick="showPage('contact')">Start a Project</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 content MATTER. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">x</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-eyebrow">About Us</div>
+    <h1 class="page-hero-title">Sharp strategy.<br><em>Measurable</em> execution.</h1>
+    <p class="page-hero-sub">We're a digital marketing agency that believes the best work gets out of its own way and just delivers results.</p>
+  </section>
+
+  <div class="about-intro">
+    <div class="about-intro-text reveal">
+      <div class="section-label">Our Story</div>
+      <h2>Built by marketers who were<br><em>tired of bad agencies.</em></h2>
+      <p>content MATTER was founded with a single conviction: most marketing agencies optimize for looking busy instead of delivering growth. We built the agency we always wanted to work with.</p>
+      <p>We're a tight team of strategists, writers, media buyers, and analysts. No bloated account teams. No junior staff doing senior work. Every client gets direct access to the people actually working on their account.</p>
+      <p>We don't do fluffy brand work disconnected from results. Everything we produce is tied to a metric we're accountable for.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="about-visual-bg"></div>
+      <div class="about-visual-text">
+        <div class="about-visual-quote" style="font-size:120px;">"</div>
+        <p style="font-family:'Playfair Display',serif; font-size:22px; font-weight:700; font-style:italic; color:rgba(255,255,255,0.85); padding: 0 40px; line-height:1.5;">Content that earns attention. Strategy that earns trust.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-values reveal">
+    <div class="section-label" style="color: rgba(255,255,255,0.5);">How We Work</div>
+    <h2 class="section-title" style="color: var(--white);">Four things we<br><em>don't compromise on.</em></h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">◎</div>
+        <div class="value-title">Clarity first</div>
+        <p class="value-desc">Strategy before execution. We don't start a campaign until we're clear on what success looks like.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◈</div>
+        <div class="value-title">Direct, not cold</div>
+        <p class="value-desc">We tell clients what they need to hear, not what they want to hear. But we're human about it.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">◇</div>
+        <div class="value-title">Premium standards</div>
+        <p class="value-desc">High quality in everything — the strategy, the copy, the decks, the Slack messages.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">△</div>
+        <div class="value-title">Real accountability</div>
+        <p class="value-desc">We report on what matters, own our misses, and reinvest in what's working.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="team-section reveal">
+    <div class="section-label">The Team</div>
+    <h2 class="section-title">The people<br><em>behind the work.</em></h2>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-photo" style="background:#2C3340; color:var(--teal);">JR</div>
+        <div class="team-name">Jordan Ray</div>
+        <div class="team-role">Founder & Strategy Lead</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo" style="background:#1a2332; color:var(--teal);">MK</div>
+        <div class="team-name">Maya Kim</div>
+        <div class="team-role">Head of Paid Media</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo" style="background:#0d3d38; color:var(--teal);">TE</div>
+        <div class="team-name">Theo Evans</div>
+        <div class="team-role">SEO & Content Director</div>
+      </div>
+      <div class="team-card">
+        <div class="team-photo" style="background:#2a1f3d; color:var(--teal);">AP</div>
+        <div class="team-name">Anika Patel</div>
+        <div class="team-role">Email & CRM Specialist</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <h2>Want to work with a team that tells you the truth?</h2>
+    <a href="#" class="btn-dark" onclick="showPage('contact')">Start a Conversation →</a>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">content <span>MATTER</span></div>
+        <p class="footer-tagline">Strategy-first digital marketing for brands that want compound growth, not vanity metrics.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">SEO & Content</a></li>
+          <li><a href="#" onclick="showPage('services')">Paid Media</a></li>
+          <li><a href="#" onclick="showPage('services')">Email Marketing</a></li>
+          <li><a href="#" onclick="showPage('services')">Brand Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('work')">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><span class="__cf_email__" data-cfemail="ff979a939390bf9c90918b9a918b929e8b8b9a8dd19c90">[email&#160;protected]</span></a></li>
+          <li><a href="#" onclick="showPage('contact')">Start a Project</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 content MATTER. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">x</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ===== CONTACT PAGE ===== -->
+<div class="page" id="page-contact">
+  <section class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="page-hero-eyebrow">Get In Touch</div>
+    <h1 class="page-hero-title">Let's talk about<br><em>what's possible.</em></h1>
+    <p class="page-hero-sub">Tell us where you're at. We'll tell you what we'd do about it.</p>
+  </section>
+
+  <div class="contact-layout">
+    <div class="contact-info reveal">
+      <div class="section-label">Contact Us</div>
+      <h2>Start a project.<br><em>Book a call.</em><br>Say hello.</h2>
+      <p>No sales pitch, no deck until we know what you need. A first call is 30 minutes — we'll ask direct questions and give you straight answers.</p>
+
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉</div>
+        <div>
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-value"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6beb3babab996b5b9b8a2b3b8a2bbb7a2a2b3a4f8b5b9">[email&#160;protected]</a></div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">☎</div>
+        <div>
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-value">+1 (555) 010-2030</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">◷</div>
+        <div>
+          <div class="contact-detail-label">Response Time</div>
+          <div class="contact-detail-value">Within 1 business day</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal">
+      <div class="form-title">Tell us about your project</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" placeholder="Jordan">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input type="text" class="form-input" placeholder="Ray">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Company Email</label>
+        <input type="email" class="form-input" placeholder="you@company.com">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Company Name</label>
+        <input type="text" class="form-input" placeholder="Acme Inc.">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service You're Interested In</label>
+        <select class="form-select">
+          <option value="">Select a service</option>
+          <option>SEO & Content Marketing</option>
+          <option>Paid Media</option>
+          <option>Email Marketing</option>
+          <option>Social Media Strategy</option>
+          <option>Brand Strategy</option>
+          <option>Full-Service Retainer</option>
+          <option>Not sure — need guidance</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Monthly Marketing Budget</label>
+        <select class="form-select">
+          <option value="">Select a range</option>
+          <option>Under $3,000/mo</option>
+          <option>$3,000–$7,500/mo</option>
+          <option>$7,500–$15,000/mo</option>
+          <option>$15,000–$30,000/mo</option>
+          <option>$30,000+/mo</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tell us about your biggest marketing challenge</label>
+        <textarea class="form-textarea" placeholder="What's not working? What do you wish was different? Be direct — we can handle it."></textarea>
+      </div>
+      <button class="btn-submit">Send Message →</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">content <span>MATTER</span></div>
+        <p class="footer-tagline">Strategy-first digital marketing for brands that want compound growth, not vanity metrics.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('services')">SEO & Content</a></li>
+          <li><a href="#" onclick="showPage('services')">Paid Media</a></li>
+          <li><a href="#" onclick="showPage('services')">Email Marketing</a></li>
+          <li><a href="#" onclick="showPage('services')">Brand Strategy</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="showPage('about')">About</a></li>
+          <li><a href="#" onclick="showPage('work')">Case Studies</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#"><span class="__cf_email__" data-cfemail="49212c252526092a26273d2c273d24283d3d2c3b672a26">[email&#160;protected]</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2026 content MATTER. All rights reserved.</span>
+      <div class="footer-socials">
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="#" class="social-link">x</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cursor.style.transform = `translate(${mx - 26}px, ${my - 26}px)`;
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.10;
+    ry += (my - ry) * 0.10;
+    ring.style.transform = `translate(${rx - 36}px, ${ry - 36}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // NAV SCROLL
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  document.getElementById('mainNav').classList.add('scrolled');
+
+  // PAGE NAVIGATION
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.classList.toggle('active', a.dataset.page === id);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(observeReveals, 100);
+    return false;
+  }
+
+  // FILTER BUTTONS
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    
