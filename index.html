@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>content MATTER — Simpler Way to Grow Your Business</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Syne:wght@400;500;600;700;800&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+@media(pointer:fine){*,*::before,*::after{cursor:none!important}}
+:root{
+  --t:#3CBFB0;--n:#2C3340;--c:#F5F2EA;--ink:#1B2028;
+  --t10:rgba(60,191,176,.10);--t20:rgba(60,191,176,.20);
+  --w15:rgba(245,242,234,.15);--w30:rgba(245,242,234,.30);--w60:rgba(245,242,234,.60);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--ink);color:var(--c);overflow-x:hidden}
+#cur{width:10px;height:10px;border-radius:50%;background:var(--t);position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+#cur-r{width:36px;height:36px;border-radius:50%;border:1px solid var(--t);position:fixed;top:0;left:0;z-index:9998;pointer-events:none;opacity:.5}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(27,32,40,.95);backdrop-filter:blur(20px);border-color:var(--t10)}
+.n-logo{text-decoration:none;display:flex;align-items:center}
+.n-logo img{height:38px;width:auto;object-fit:contain;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}.n-wordmark{height:36px;width:auto}
+.n-right{display:flex;align-items:center;gap:32px}
+.n-link{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--w60);text-decoration:none;transition:color .2s;font-family:'Inter',sans-serif}
+.n-link:hover{color:var(--t)}
+.n-btn{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--t);padding:11px 26px;text-decoration:none;transition:background .2s,transform .2s;font-family:'Inter',sans-serif}
+.n-btn:hover{background:#34b0a1;transform:translateY(-1px)}
+.n-login{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--w60);border:1px solid rgba(245,242,234,.15);padding:10px 22px;text-decoration:none;transition:all .2s;font-family:'Inter',sans-serif;cursor:pointer;background:none}
+.n-login:hover{border-color:var(--t);color:var(--t)}
+.n-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px;z-index:600}
+.n-ham span{display:block;width:22px;height:2px;background:var(--c);transition:all .3s;transform-origin:center}
+.n-ham.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.n-ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.n-ham.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-menu{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(27,32,40,.98);backdrop-filter:blur(20px);flex-direction:column;padding:16px 0;z-index:499;border-bottom:1px solid var(--t10)}
+.mob-menu.open{display:flex}
+.mob-link{padding:14px 24px;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--w60);text-decoration:none;border-bottom:1px solid rgba(245,242,234,.04);transition:color .2s}
+.mob-link:hover,.mob-link:active{color:var(--t)}
+.mob-cta{color:var(--t);margin:8px 16px 4px;border:1px solid var(--t20);text-align:center;border-bottom:1px solid var(--t20)!important}
+.hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding:0 48px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 65% 40%,rgba(60,191,176,.07) 0%,transparent 70%),radial-gradient(ellipse 40% 80% at 90% 80%,rgba(44,51,64,.8) 0%,transparent 70%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--t10) 1px,transparent 1px),linear-gradient(90deg,var(--t10) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 70% 70% at 60% 50%,black,transparent)}
+.hero-body{display:grid;grid-template-columns:1fr 420px;gap:0;align-items:end;padding-top:140px;padding-bottom:80px;position:relative;z-index:2}
+.hero-eyebrow{display:flex;align-items:center;gap:14px;font-size:10px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--t);margin-bottom:36px;opacity:0;transform:translateY(16px);animation:up .7s .1s forwards}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--t)}
+h1{font-family:'Instrument Serif',serif;font-size:clamp(56px,7vw,104px);font-weight:400;line-height:.95;letter-spacing:-.03em;color:var(--c);opacity:0;transform:translateY(24px);animation:up .8s .22s forwards}
+h1 i{color:var(--t);font-style:italic}
+h1 .outline{-webkit-text-stroke:1px var(--c);color:transparent}
+.hero-sub{font-size:15px;font-weight:400;color:var(--w60);line-height:1.75;max-width:500px;margin-top:32px;opacity:0;transform:translateY(16px);animation:up .7s .4s forwards}
+.hero-actions{display:flex;gap:14px;margin-top:44px;opacity:0;transform:translateY(16px);animation:up .7s .55s forwards}
+.btn-fill{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;background:var(--t);color:var(--ink);padding:15px 34px;text-decoration:none;transition:all .25s;font-family:'Inter',sans-serif}
+.btn-fill:hover{background:#34b0a1;transform:translateY(-2px)}
+.btn-ghost{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--w15);color:var(--w60);padding:15px 34px;text-decoration:none;transition:all .25s;font-family:'Inter',sans-serif}
+.btn-ghost:hover{border-color:var(--t);color:var(--t)}
+.hero-card{align-self:end;margin-bottom:80px;opacity:0;transform:translateY(32px);animation:up .9s .5s forwards}
+.logo-box{width:100%;background:var(--n);border:1px solid var(--t20);padding:40px;position:relative;overflow:hidden}
+.logo-box::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(60,191,176,.15),transparent 70%)}
+.logo-box-img{margin-bottom:24px}.box-wordmark{height:40px;width:auto}
+.logo-box-img img{height:44px;width:auto;object-fit:contain;image-rendering:-webkit-optimize-contrast}
+.logo-box h3{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;line-height:1.2;color:var(--c);margin-bottom:8px}
+.logo-box p{font-size:12px;color:var(--w60);line-height:1.6;margin-bottom:28px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(60,191,176,.1);border:1px solid var(--t20);padding:6px 14px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t)}
+.pill::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--t);animation:blink 1.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero-bar{border-top:1px solid var(--w15);display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:2;opacity:0;animation:up .7s .7s forwards}
+.hb-item{padding:28px 24px;border-right:1px solid var(--w15);display:flex;flex-direction:column;gap:4px}
+.hb-item:first-child{padding-left:0}
+.hb-item:last-child{border-right:none;padding-right:0}
+.hb-n{font-family:'Instrument Serif',serif;font-size:36px;font-weight:400;color:var(--t);line-height:1}
+.hb-l{font-size:10px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--w30)}
+.mq{background:var(--n);border-top:1px solid var(--t10);border-bottom:1px solid var(--t10);overflow:hidden;display:flex;align-items:center;height:68px}
+.mq-label{flex-shrink:0;padding:0 32px;font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--w30);border-right:1px solid var(--t10);white-space:nowrap}
+.mq-track{display:flex;align-items:center;animation:scroll 38s linear infinite;white-space:nowrap}
+.mq-track:hover{animation-play-state:paused}
+.mq-item{display:inline-flex;align-items:center;justify-content:center;padding:0 36px;border-right:1px solid var(--t10);height:68px}
+.mq-logo{height:22px;width:auto;max-width:110px;display:block;object-fit:contain;transition:filter .3s}
+.mq-l0{filter:opacity(.55)}
+.mq-item:hover .mq-l0{filter:opacity(1)}
+.mq-l1{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l1{filter:invert(1) opacity(1)}
+.mq-l2{filter:brightness(0) invert(1) opacity(.55)}
+.mq-item:hover .mq-l2{filter:brightness(0) invert(1) opacity(1)}
+.mq-l3{filter:opacity(.55)}
+.mq-item:hover .mq-l3{filter:opacity(1)}
+.mq-l4{filter:opacity(.55)}
+.mq-item:hover .mq-l4{filter:opacity(1)}
+.mq-l5{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l5{filter:invert(1) opacity(1)}
+.mq-l6{filter:opacity(.55)}
+.mq-item:hover .mq-l6{filter:opacity(1)}
+.mq-l7{filter:brightness(0) invert(1) opacity(.55)}
+.mq-item:hover .mq-l7{filter:brightness(0) invert(1) opacity(1)}
+.mq-l8{filter:brightness(0) invert(1) opacity(.55)}
+.mq-item:hover .mq-l8{filter:brightness(0) invert(1) opacity(1)}
+.mq-l9{filter:grayscale(1) brightness(2) opacity(.55)}
+.mq-item:hover .mq-l9{filter:grayscale(0) brightness(1) opacity(1)}
+.mq-l10{filter:grayscale(1) brightness(1.8) opacity(.55)}
+.mq-item:hover .mq-l10{filter:grayscale(0) brightness(1) opacity(1)}
+.mq-l11{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l11{filter:invert(1) opacity(1)}
+.mq-l12{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l12{filter:invert(1) opacity(1)}
+.mq-l13{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l13{filter:invert(1) opacity(1)}
+.mq-l14{filter:invert(1) opacity(.55)}
+.mq-item:hover .mq-l14{filter:invert(1) opacity(1)}
+
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sec{padding:110px 48px}
+.sec-tag{font-size:9px;font-weight:900;letter-spacing:.25em;text-transform:uppercase;color:var(--t);display:flex;align-items:center;gap:10px;margin-bottom:16px;font-family:'Inter',sans-serif}
+.sec-tag::before{content:'';width:20px;height:1px;background:var(--t)}
+h2{font-family:'Instrument Serif',serif;font-size:clamp(36px,4.5vw,68px);font-weight:400;line-height:1.05;letter-spacing:-.02em}
+h2 i{color:var(--t);font-style:italic}
+.svc-sec{background:var(--ink)}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.svc-card{padding:44px 36px;border:1px solid rgba(245,242,234,.06);border-right:none;border-bottom:none;position:relative;overflow:hidden;transition:background .3s}
+.svc-grid .svc-card:nth-child(3n){border-right:1px solid rgba(245,242,234,.06)}
+.svc-grid .svc-card:nth-child(n+4){border-bottom:1px solid rgba(245,242,234,.06)}
+.svc-card::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--t);transition:width .4s ease}
+.svc-card:hover{background:rgba(60,191,176,.04)}
+.svc-card:hover::after{width:100%}
+.svc-n{font-size:11px;font-weight:700;letter-spacing:.15em;color:var(--t);margin-bottom:8px}
+.svc-tag{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(60,191,176,.45);margin-bottom:16px;border:1px solid rgba(60,191,176,.2);display:inline-block;padding:3px 8px}
+.svc-title{font-family:'Instrument Serif',serif;font-size:24px;font-weight:400;color:var(--c);margin-bottom:12px;line-height:1.15}
+.svc-body{font-size:13px;font-weight:400;color:var(--w60);line-height:1.75}
+.why-sec{background:var(--n)}
+.why-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.why-rows{margin-top:48px}
+.why-row{display:flex;gap:20px;align-items:flex-start;padding:24px 0;border-bottom:1px solid rgba(245,242,234,.07)}
+.why-row:first-child{border-top:1px solid rgba(245,242,234,.07)}
+.why-i{font-family:'Instrument Serif',serif;font-size:34px;font-weight:400;color:rgba(60,191,176,.25);line-height:1;flex-shrink:0;width:36px}
+.why-row h4{font-size:14px;font-weight:600;color:var(--c);margin-bottom:5px}
+.why-row p{font-size:13px;color:var(--w60);line-height:1.7}
+.why-right{position:sticky;top:100px;background:rgba(60,191,176,.05);border:1px solid var(--t20);padding:52px 44px;min-height:440px}
+.big-stat{font-family:'Instrument Serif',serif;font-size:120px;font-weight:400;color:var(--t);line-height:.85;letter-spacing:-.04em}
+.big-stat-l{font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--w30);margin-top:20px;margin-bottom:40px}
+.mini-stats{display:flex;gap:40px}
+.ms-n{font-family:'Instrument Serif',serif;font-size:44px;font-weight:400;color:var(--c);line-height:1}
+.ms-l{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--w30);margin-top:4px}
+.testi-sec{background:var(--ink)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.t-card{background:var(--n);padding:44px 36px;border-top:2px solid transparent;transition:border-color .3s,background .3s}
+.t-card:hover{border-top-color:var(--t);background:#2f3748}
+.t-mark{font-family:'Instrument Serif',serif;font-size:64px;color:var(--t);opacity:.25;line-height:.7;margin-bottom:20px}
+.t-text{font-family:'Instrument Serif',serif;font-size:18px;font-style:italic;color:rgba(245,242,234,.75);line-height:1.65}
+.t-author{margin-top:28px;padding-top:20px;border-top:1px solid rgba(245,242,234,.07)}
+.t-name{font-size:13px;font-weight:600;color:var(--c)}
+.t-role{font-size:10px;color:var(--t);margin-top:3px;letter-spacing:.06em}
+.cta-sec{background:var(--t);padding:100px 48px;display:flex;justify-content:space-between;align-items:center;gap:60px}
+.cta-sec h2{font-family:'Instrument Serif',serif;font-size:clamp(32px,4vw,60px);font-weight:400;line-height:1.1;color:var(--ink);max-width:580px}
+.cta-sec h2 i{font-style:italic}
+.btn-ink{font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:var(--c);padding:17px 40px;text-decoration:none;flex-shrink:0;transition:all .25s;font-family:'Inter',sans-serif}
+.btn-ink:hover{background:#111518;transform:translateY(-2px)}
+footer{background:#11151b;padding:72px 48px 40px}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(245,242,234,.05);margin-bottom:28px}
+.ft-brand{margin-bottom:14px}.ft-wordmark{height:32px;width:auto}
+.ft-brand img{height:40px;width:auto;object-fit:contain;image-rendering:-webkit-optimize-contrast}
+.ft-desc{font-size:12px;color:var(--w30);line-height:1.7;max-width:260px}
+.ft-h{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--t);margin-bottom:14px}
+.ft-links{list-style:none}
+.ft-links li{margin-bottom:7px}
+.ft-links a{font-size:12px;color:var(--w30);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--t)}
+.ft-bot{display:flex;justify-content:space-between;align-items:center}
+.ft-copy{font-size:10px;color:rgba(245,242,234,.18)}
+.socials{display:flex;gap:8px}
+.soc{width:32px;height:32px;border:1px solid rgba(245,242,234,.1);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--w30);text-decoration:none;transition:all .2s}
+.soc:hover{border-color:var(--t);color:var(--t)}
+.r{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.r.on{opacity:1;transform:none}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}
+@keyframes up{to{opacity:1;transform:none}}
+@media(pointer:coarse){#cur,#cur-r{display:none!important}*{cursor:auto!important}}
+@media(max-width:760px){
+  .n-ham{display:flex}
+  .n-btn,.n-link,.n-login{display:none}
+  .n-logo img{height:32px}.n-wordmark{height:30px}
+}
+@media(max-width:960px){
+  nav{padding:0 24px;height:68px}
+  .hero{padding:0 24px}
+  .hero-body{grid-template-columns:1fr;gap:40px;padding-top:110px;padding-bottom:48px}
+  .hero-card{margin-bottom:0}
+  h1{font-size:clamp(52px,9vw,80px)}
+  .hero-sub{max-width:100%}
+  .hero-bar{grid-template-columns:repeat(2,1fr)}
+  .hb-item:nth-child(2){border-right:none;padding-right:0}
+  .hb-item:nth-child(3){border-right:1px solid var(--w15);border-top:1px solid var(--w15);padding-left:0}
+  .hb-item:nth-child(4){border-top:1px solid var(--w15)}
+  .sec{padding:80px 24px}
+  .svc-head{flex-direction:column;align-items:flex-start;gap:24px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .svc-grid .svc-card:nth-child(3n){border-right:none}
+  .svc-grid .svc-card:nth-child(2n){border-right:1px solid rgba(245,242,234,.06)}
+  .svc-grid .svc-card:nth-child(n+3){border-bottom:1px solid rgba(245,242,234,.06)}
+  .why-inner{grid-template-columns:1fr;gap:48px}
+  .why-right{position:static;min-height:auto;padding:40px 32px}
+  .big-stat{font-size:88px}
+  .testi-grid{grid-template-columns:1fr;gap:2px}
+  .cta-sec{flex-direction:column;align-items:flex-start;gap:36px;padding:80px 24px}
+  footer{padding:56px 24px 36px}
+  .ft{grid-template-columns:1fr 1fr;gap:36px}
+}
+@media(max-width:600px){
+  nav{padding:0 16px;height:60px}
+  .n-logo img{height:28px}.n-wordmark{height:26px}
+  .hero{padding:0 16px}
+  .hero-body{padding-top:84px;padding-bottom:36px;gap:28px}
+  h1{font-size:clamp(40px,11vw,60px);line-height:.93}
+  .hero-eyebrow{margin-bottom:20px}
+  .hero-sub{font-size:14px;margin-top:24px}
+  .hero-actions{flex-direction:column;gap:10px;margin-top:32px}
+  .btn-fill,.btn-ghost{width:100%;text-align:center;padding:15px 20px}
+  .logo-box{padding:24px 20px}
+  .logo-box h3{font-size:20px}
+  .hb-item{padding:18px 0}
+  .hb-n{font-size:30px}
+  .sec{padding:56px 16px}
+  h2{font-size:clamp(30px,8.5vw,48px)}
+  .svc-grid{grid-template-columns:1fr}
+  .svc-card{border-right:1px solid rgba(245,242,234,.06)!important}
+  .svc-grid .svc-card:last-child{border-bottom:1px solid rgba(245,242,234,.06)}
+  .why-inner{gap:28px}
+  .why-right{padding:28px 20px}
+  .big-stat{font-size:68px}
+  .mini-stats{gap:20px;flex-wrap:wrap}
+  .ms-n{font-size:34px}
+  .t-card{padding:32px 22px}
+  .t-text{font-size:16px}
+  .cta-sec{padding:56px 16px;gap:24px}
+  .cta-sec h2{font-size:clamp(26px,7.5vw,40px)}
+  .btn-ink{width:100%;text-align:center;padding:16px 20px}
+  footer{padding:40px 16px 28px}
+  .ft{grid-template-columns:1fr;gap:24px}
+  .ft-bot{flex-direction:column;gap:14px;align-items:flex-start}
+  .mq{height:52px}
+  .mq-label{padding:0 16px;font-size:8px}
+  .mq-item{padding:0 20px;height:52px}
+  .mq-logo{height:18px;max-width:80px}
+}
+/* ── How It Works ─────────────────────────────────────── */
+.hiw-sec{background:var(--ink);border-top:1px solid rgba(245,242,234,.05)}
+.hiw-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:64px;position:relative}
+.hiw-steps::before{content:'';position:absolute;top:26px;left:calc(0% + 26px);right:calc(0% + 26px);height:1px;background:linear-gradient(90deg,var(--t10),var(--t20) 40%,var(--t20) 60%,var(--t10));pointer-events:none;z-index:0}
+.hiw-step{padding:0 48px 0 0}
+.hiw-step:last-child{padding-right:0}
+.hiw-num{width:52px;height:52px;border:1px solid var(--t20);display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:22px;font-weight:400;color:var(--t);margin-bottom:28px;background:var(--ink);position:relative;z-index:1}
+.hiw-tag{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(60,191,176,.5);border:1px solid rgba(60,191,176,.2);display:inline-block;padding:3px 10px;margin-bottom:14px}
+.hiw-step h3{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--c);line-height:1.2;margin-bottom:12px}
+.hiw-step p{font-size:13px;color:var(--w60);line-height:1.75}
+/* ── Pricing ──────────────────────────────────────────── */
+.price-sec{background:var(--n)}
+.price-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px}
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.price-card{background:rgba(27,32,40,.7);border:1px solid rgba(245,242,234,.06);padding:44px 36px;position:relative;display:flex;flex-direction:column;transition:background .3s,border-color .3s}
+.price-card:hover{background:rgba(27,32,40,.95);border-color:var(--t20)}
+.price-card.featured{background:rgba(27,32,40,.95);border-color:var(--t20)}
+.price-card.featured::before{content:'Most Popular';position:absolute;top:0;right:28px;background:var(--t);color:var(--ink);font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 12px}
+.price-tier{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--t);margin-bottom:20px}
+.price-val{font-family:'Instrument Serif',serif;font-size:56px;font-weight:400;color:var(--c);line-height:1;margin-bottom:4px}
+.price-val sup{font-family:'Syne',sans-serif;font-size:20px;font-weight:400;vertical-align:super}
+.price-per{font-size:10px;color:var(--w30);letter-spacing:.08em;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(245,242,234,.07)}
+.price-items{list-style:none;margin-bottom:32px;flex:1}
+.price-items li{font-size:12px;color:var(--w60);padding:7px 0;border-bottom:1px solid rgba(245,242,234,.04);display:flex;align-items:center;gap:10px}
+.price-items li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--t);flex-shrink:0}
+.price-cta{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--t);border:1px solid var(--t20);padding:14px 24px;text-decoration:none;display:block;transition:all .25s;text-align:center;background:none;cursor:pointer}
+.price-cta:hover,.price-card.featured .price-cta{background:var(--t);color:var(--ink);border-color:var(--t)}
+.price-footnote{margin-top:28px;font-size:11px;color:rgba(60,191,176,.45);text-align:center;letter-spacing:.04em}
+/* ── FAQ ──────────────────────────────────────────────── */
+.faq-sec{background:var(--ink)}
+.faq-wrap{max-width:760px;margin-top:56px}
+.faq-item{border-bottom:1px solid rgba(245,242,234,.07)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:24px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;cursor:pointer;color:var(--c)}
+.faq-q-text{font-size:15px;font-weight:600;line-height:1.35}
+.faq-icon{flex-shrink:0;width:28px;height:28px;border:1px solid var(--t20);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--t);font-size:18px;line-height:1;transition:transform .3s,background .3s,color .3s}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--t);color:var(--ink);border-color:var(--t)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-a-inner{font-size:13px;color:var(--w60);line-height:1.8;padding-bottom:24px}
+.faq-item.open .faq-a{max-height:220px}
+@media(max-width:960px){
+  .hiw-steps{grid-template-columns:1fr;gap:40px}
+  .hiw-step{padding-right:0}
+  .hiw-steps::before{display:none}
+  .price-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .price-head p{text-align:left!important}
+  .price-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .hiw-step h3{font-size:22px}
+  .price-val{font-size:44px}
+  .faq-q-text{font-size:13px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-r"></div>
+<nav id="nav">
+  <a href="#" class="n-logo">
+    <svg viewBox="0 0 300 70" fill="none" xmlns="http://www.w3.org/2000/svg" class="n-wordmark">
+      <text y="47" font-family="Inter,sans-serif" font-weight="900" font-size="40" fill="#F5F2EA" style="letter-spacing:-0.09em">content<tspan fill="#3CBFB0">MATTER.</tspan></text>
+      <rect y="58" width="294" height="5" fill="#3CBFB0"/>
+    </svg>
+  </a>
+  <div class="n-right">
+    <a href="#services" class="n-link">Services</a>
+    <a href="#how" class="n-link">How It Works</a>
+    <a href="#results" class="n-link">Results</a>
+    <button class="n-login" onclick="openLoginModal();return false;">Client Login</button>
+    <a href="#" class="n-btn" onclick="openModal();return false;">Get Started</a>
+    <button class="n-ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mob-menu" id="mobMenu">
+    <a href="#services" class="mob-link" onclick="closeMob()">Services</a>
+    <a href="#how" class="mob-link" onclick="closeMob()">How It Works</a>
+    <a href="#results" class="mob-link" onclick="closeMob()">Results</a>
+    <a href="#" class="mob-link" onclick="closeMob();openLoginModal();">Client Login</a>
+    <a href="#" class="mob-link mob-cta" onclick="closeMob();openModal();">Get Started</a>
+  </div>
+</nav>
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-body">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Digital Marketing Agency</div>
+      <h1>A Simpler Way<br>to <i>Grow</i> Your<br><span class="outline">Business.</span></h1>
+      <p class="hero-sub">We help businesses attract new customers and retain existing ones through clear, effective, and intelligent marketing systems. Without the noise, confusion, or complexity of traditional agencies.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-fill">Start a Project</a>
+        <a href="#services" class="btn-ghost">See What We Do</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="logo-box">
+        <div class="logo-box-img"><svg viewBox="0 0 420 100" fill="none" xmlns="http://www.w3.org/2000/svg" class="box-wordmark">
+            <text y="64" font-family="Inter,sans-serif" font-weight="900" font-size="54" fill="#F5F2EA" style="letter-spacing:-0.09em">content<tspan fill="#3CBFB0">MATTER.</tspan></text>
+            <rect y="78" width="412" height="7" fill="#3CBFB0"/>
+          </svg></div>
+        <h3>Marketing Shouldn't<br>Feel Complicated.</h3>
+        <p>Clear strategy. Real results. No agency runaround.</p>
+        <span class="pill">Currently taking new clients</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-bar">
+    <div class="hb-item"><div class="hb-n">40+</div><div class="hb-l">Businesses Grown</div></div>
+    <div class="hb-item"><div class="hb-n">$1.3M+</div><div class="hb-l">Revenue Driven</div></div>
+    <div class="hb-item"><div class="hb-n">6×</div><div class="hb-l">Average ROAS</div></div>
+    <div class="hb-item"><div class="hb-n">98%</div><div class="hb-l">Client Retention</div></div>
+  </div>
+</section>
+<section class="sec svc-sec" id="services">
+  <div class="svc-head">
+    <div>
+      <div class="sec-tag r">What We Do</div>
+      <h2 class="r d1">Every channel.<br><i>One team.</i></h2>
+    </div>
+    <a href="#contact" class="btn-fill r d2">Start a Project</a>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card r"><div class="svc-n">01</div><div class="svc-tag">SEO &amp; Content</div><div class="svc-title">Search Visibility</div><p class="svc-body">We help your business appear when customers are actively searching for what you offer. Our approach focuses on the terms that bring real customers — not just traffic.</p></div>
+    <div class="svc-card r d1"><div class="svc-n">02</div><div class="svc-tag">Paid Media</div><div class="svc-title">Customer Acquisition</div><p class="svc-body">Strategic advertising designed to consistently bring new customers into your business. Meta, Google, TikTok, LinkedIn — we run campaigns that maximize return and minimize wasted spend.</p></div>
+    <div class="svc-card r d2"><div class="svc-n">03</div><div class="svc-tag">Email Marketing</div><div class="svc-title">Customer Retention</div><p class="svc-body">Your customer list is one of your most valuable assets. We build email and SMS systems that turn first-time customers into repeat customers.</p></div>
+    <div class="svc-card r"><div class="svc-n">04</div><div class="svc-tag">Social Strategy</div><div class="svc-title">Audience Growth</div><p class="svc-body">A social presence designed to attract the right audience and turn attention into customers. Thoughtful strategy over constant posting.</p></div>
+    <div class="svc-card r d1"><div class="svc-n">05</div><div class="svc-tag">Brand Strategy</div><div class="svc-title">Market Clarity</div><p class="svc-body">Clear positioning helps customers immediately understand why your business is the right choice. We help define what makes your business stand out.</p></div>
+    <div class="svc-card r d2"><div class="svc-n">06</div><div class="svc-tag">Analytics &amp; Reporting</div><div class="svc-title">Analytics &amp; Reporting</div><p class="svc-body">No vanity metrics. Clear dashboards, clean attribution, and honest reporting on what's working and what isn't.</p></div>
+  </div>
+</section>
+<section class="sec why-sec" id="why">
+  <div class="why-inner">
+    <div>
+      <div class="sec-tag r">Why content MATTER</div>
+      <h2 class="r d1" style="color:var(--c)">Built for businesses<br>that can't afford<br><i>to waste money.</i></h2>
+      <div class="why-rows">
+        <div class="why-row r"><div class="why-i">1</div><div><h4>Strategy before execution</h4><p>We don't start a campaign until we're clear on what success looks like. Every engagement begins with a defined goal and a plan to hit it.</p></div></div>
+        <div class="why-row r d1"><div class="why-i">2</div><div><h4>Direct access, no middlemen</h4><p>No account manager layer. No offshore handoffs. Every client works directly with the people doing the work.</p></div></div>
+        <div class="why-row r d2"><div class="why-i">3</div><div><h4>We know your industry</h4><p>Food, hospitality, retail, local events — years in these verticals. We speak your language and understand your margins.</p></div></div>
+        <div class="why-row r d3"><div class="why-i">4</div><div><h4>Honest reporting, always</h4><p>When something isn't working, we say so and we fix it — not spin it.</p></div></div>
+      </div>
+    </div>
+    <div class="why-right r d1">
+      <div class="big-stat">98%</div>
+      <div class="big-stat-l">Client Retention Rate</div>
+      <div class="mini-stats">
+        <div><div class="ms-n">40+</div><div class="ms-l">Businesses Grown</div></div>
+        <div><div class="ms-n">6×</div><div class="ms-l">Avg ROAS</div></div>
+        <div><div class="ms-n">$1.3M</div><div class="ms-l">Revenue</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec testi-sec" id="results">
+  <div class="sec-tag r">What Clients Say</div>
+  <h2 class="r d1" style="color:var(--c);max-width:480px">Results we're<br><i>proud to show.</i></h2>
+  <div class="testi-grid">
+    <div class="t-card r"><div class="t-mark">"</div><p class="t-text">content MATTER completely changed how we think about digital. Our online orders went up 60% in the first 90 days — and they didn't just set it and forget it.</p><div class="t-author"><div class="t-name">Marcus Lin</div><div class="t-role">Owner, Northside Kitchen</div></div></div>
+    <div class="t-card r d1"><div class="t-mark">"</div><p class="t-text">We were spending on ads with no idea what was working. They cleaned everything up, built us a proper funnel, and now we actually understand our numbers.</p><div class="t-author"><div class="t-name">Priya Sharma</div><div class="t-role">Co-founder, Friendship Festival</div></div></div>
+    <div class="t-card r d2"><div class="t-mark">"</div><p class="t-text">Straightforward, fast, and they actually know the food and hospitality space. Our email list went from dead weight to our best revenue channel.</p><div class="t-author"><div class="t-name">James Okafor</div><div class="t-role">Founder, A Little Tea</div></div></div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ─────────────────────────────────────── -->
+<section class="sec hiw-sec" id="how">
+  <div class="sec-tag r">How It Works</div>
+  <h2 class="r d1" style="color:var(--c)">Three steps to<br><i>real results.</i></h2>
+  <div class="hiw-steps">
+    <div class="hiw-step r">
+      <div class="hiw-num">01</div>
+      <div class="hiw-tag">Week 1</div>
+      <h3>Discovery Call</h3>
+      <p>A focused 30-minute conversation to understand your business, your customers, and the numbers that matter. No fluff, no sales pitch — just clarity on where you are and where you want to go.</p>
+    </div>
+    <div class="hiw-step r d1">
+      <div class="hiw-num">02</div>
+      <div class="hiw-tag">Weeks 2–4</div>
+      <h3>Strategy &amp; Setup</h3>
+      <p>We build your full marketing system — channel selection, targeting, creative, tracking, and reporting infrastructure. Everything is configured before a single dollar of ad spend is deployed.</p>
+    </div>
+    <div class="hiw-step r d2">
+      <div class="hiw-num">03</div>
+      <div class="hiw-tag">Month 2 onward</div>
+      <h3>Ongoing Growth</h3>
+      <p>Weekly optimizations, monthly reporting with real numbers, and direct access to the team. We move fast on what's working and cut what isn't — and you'll always know why.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FAQ ────────────────────────────────────────────── -->
+<section class="sec faq-sec" id="faq">
+  <div class="sec-tag r">FAQ</div>
+  <h2 class="r d1" style="color:var(--c)">Questions we<br><i>get a lot.</i></h2>
+  <div class="faq-wrap">
+    <div class="faq-item r">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How quickly will I see results?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">Most clients see measurable improvement in lead quality and cost-per-acquisition within 60–90 days. The first 30 days are focused on setup and baseline data — we don't scale spending until we know what's working.</p></div>
+    </div>
+    <div class="faq-item r d1">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What industries do you work with?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">We specialize in food &amp; hospitality, local retail, events, and local service businesses. These are industries we know deeply — which means we understand your margins, your seasonality, and your customers.</p></div>
+    </div>
+    <div class="faq-item r d2">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I need a big ad budget to get started?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">No. We've seen strong results with ad budgets starting at $500–$1,000/month. Our job is to maximize return on whatever budget you have — not push you into overspending before you're ready.</p></div>
+    </div>
+    <div class="faq-item r d3">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What does reporting look like?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">You get a plain-English monthly report: what we spent, what it produced, what we're testing, and what we're changing next. No vanity metrics, no 40-slide decks — just the numbers that matter.</p></div>
+    </div>
+    <div class="faq-item r">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How long are the contracts?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">We ask for a 90-day initial commitment — enough time to set up, test, and show real results. After that, it's month-to-month. We don't believe in locking clients in; we earn the work every month.</p></div>
+    </div>
+    <div class="faq-item r d1">
+      <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What if I'm already working with another agency?</span><span class="faq-icon">+</span></button>
+      <div class="faq-a"><p class="faq-a-inner">We can take over a running account, audit what's there, and transition cleanly. The first thing we do is an honest assessment of what's working and what isn't — and we'll tell you the truth regardless.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-sec" id="contact">
+  <h2>Ready to grow your business? Let's build something that <i style="color:#fff">actually works.</i></h2>
+  <button class="btn-ink" onclick="openModal()">Book a Strategy Call →</button>
+</div>
+<footer>
+  <div class="ft">
+    <div>
+      <div class="ft-brand"><svg viewBox="0 0 260 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="ft-wordmark">
+          <text y="40" font-family="Inter,sans-serif" font-weight="900" font-size="34" fill="#F5F2EA" style="letter-spacing:-0.09em">content<tspan fill="#3CBFB0">MATTER.</tspan></text>
+          <rect y="49" width="254" height="4" fill="#3CBFB0"/>
+        </svg></div>
+      <p class="ft-desc">Simpler, smarter digital marketing for businesses that want real growth — not agency runaround.</p>
+    </div>
+    <div>
+      <div class="ft-h">Services</div>
+      <ul class="ft-links">
+        <li><a href="#services">Search Visibility</a></li>
+        <li><a href="#services">Customer Acquisition</a></li>
+        <li><a href="#services">Customer Retention</a></li>
+        <li><a href="#services">Audience Growth</a></li>
+        <li><a href="#services">Market Clarity</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-h">Company</div>
+      <ul class="ft-links">
+        <li><a href="#why">About</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft-h">Contact</div>
+      <ul class="ft-links">
+        <li><a href="mailto:hello@contentmatter.co">hello@contentmatter.co</a></li>
+        <li><a href="#contact">Book a Call</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bot">
+    <span class="ft-copy">© 2026 content MATTER. All rights reserved.</span>
+    <div class="socials">
+      <a href="#" class="soc">in</a>
+      <a href="#" class="soc">ig</a>
+      <a href="#" class="soc">x</a>
+    </div>
+  </div>
+</footer>
+<script>
+  const cur=document.getElementById('cur'),ring=document.getElementById('cur-r');
+  if(window.matchMedia('(pointer: fine)').matches){
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-5}px,${my-5}px)`;});
+    (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.transform=`translate(${rx-18}px,${ry-18}px)`;requestAnimationFrame(loop);})();
+  }else{cur.style.display='none';ring.style.display='none';}
+  window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',scrollY>50);},{passive:true});
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+  document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+  const ham=document.getElementById('ham'),mob=document.getElementById('mobMenu');
+  if(ham&&mob){
+    ham.addEventListener('click',()=>{ham.classList.toggle('open');mob.classList.toggle('open');});
+    window.addEventListener('scroll',()=>{ham.classList.remove('open');mob.classList.remove('open');},{passive:true});
+  }
+  function closeMob(){if(ham&&mob){ham.classList.remove('open');mob.classList.remove('open');}}
+</script>
+
+<!-- ── MODAL STYLES ────────────────────────────────────────────── -->
+<style>
+.modal-overlay{position:fixed;inset:0;z-index:900;background:rgba(17,21,27,.85);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.modal{background:var(--n);border:1px solid var(--t20);width:100%;max-width:640px;max-height:90svh;overflow-y:auto;position:relative;transform:translateY(28px) scale(.97);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+.modal-overlay.show .modal{transform:none}
+.modal-head{padding:36px 40px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.modal-head-copy{}
+.modal-eyebrow{font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--t);display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.modal-eyebrow::before{content:'';width:16px;height:1px;background:var(--t)}
+.modal-title{font-family:'Instrument Serif',serif;font-size:28px;font-weight:400;line-height:1.1;color:var(--c)}
+.modal-title i{color:var(--t);font-style:italic}
+.modal-close{flex-shrink:0;width:36px;height:36px;border:1px solid rgba(245,242,234,.12);background:none;color:var(--w60);font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;margin-top:2px}
+.modal-close:hover{border-color:var(--t);color:var(--t)}
+.modal-body{padding:28px 40px 40px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.form-group label{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--w30)}
+.form-group input,.form-group select,.form-group textarea{background:rgba(245,242,234,.04);border:1px solid rgba(245,242,234,.1);color:var(--c);font-family:'Syne',sans-serif;font-size:13px;font-weight:400;padding:12px 14px;outline:none;transition:border-color .2s;width:100%}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(245,242,234,.25)}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%233CBFB0' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-group select option{background:var(--n);color:var(--c)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--t)}
+.form-group textarea{resize:vertical;min-height:90px}
+.form-submit{width:100%;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--t);color:var(--ink);padding:16px;border:none;transition:background .2s,opacity .2s;margin-top:6px}
+.form-submit:hover:not(:disabled){background:#34b0a1}
+.form-submit:disabled{opacity:.6}
+.form-submit.loading::after{content:' …'}
+.form-success{display:none;text-align:center;padding:20px 0 8px}
+.form-success.show{display:block}
+.success-icon{width:52px;height:52px;border-radius:50%;background:var(--t10);border:1px solid var(--t20);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px}
+.form-success h3{font-family:'Instrument Serif',serif;font-size:26px;font-weight:400;color:var(--c);margin-bottom:8px}
+.form-success p{font-size:13px;color:var(--w60);line-height:1.7}
+.form-wrapper.hide{display:none}
+@media(max-width:600px){
+  .modal-head{padding:24px 20px 0}
+  .modal-body{padding:20px 20px 28px}
+  .form-row{grid-template-columns:1fr}
+  .modal-title{font-size:22px}
+}
+</style>
+
+<!-- ── MODAL HTML ──────────────────────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
+    <div class="modal-head">
+      <div class="modal-head-copy">
+        <div class="modal-eyebrow">Let's Talk</div>
+        <h2 class="modal-title" id="modalHeading">Tell us about your<br><i>business.</i></h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-wrapper" id="formWrapper">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Alex" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Johnson" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="alex@yourbusiness.com" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="company">Business Name</label>
+            <input type="text" id="company" name="company" placeholder="Your Business" required>
+          </div>
+          <div class="form-group">
+            <label for="service">What can we help with?</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Select a service…</option>
+              <option value="search">Search Visibility (SEO)</option>
+              <option value="paid">Customer Acquisition (Paid Media)</option>
+              <option value="email">Customer Retention (Email / SMS)</option>
+              <option value="social">Audience Growth (Social)</option>
+              <option value="brand">Market Clarity (Brand Strategy)</option>
+              <option value="analytics">Analytics &amp; Reporting</option>
+              <option value="full">Full-service partnership</option>
+              <option value="unsure">Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Anything else we should know?</label>
+            <textarea id="message" name="message" placeholder="Tell us about your goals, current challenges, or timeline…"></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">Send My Info →</button>
+        </form>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon">✓</div>
+        <h3>You're on our radar.</h3>
+        <p>We'll review your info and reach out within 1 business day.<br>In the meantime, feel free to email us at <a href="mailto:hello@contentmatter.co" style="color:var(--t)">hello@contentmatter.co</a>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LOGIN MODAL ────────────────────────────────────────────── -->
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginHeading" style="max-width:440px">
+    <div class="modal-head">
+      <div class="modal-head-copy">
+        <div class="modal-eyebrow">Client Portal</div>
+        <h2 class="modal-title" id="loginHeading">Welcome<br><i>back.</i></h2>
+      </div>
+      <button class="modal-close" onclick="closeLoginModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-wrapper" id="loginWrapper">
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label for="loginEmail">Email Address</label>
+            <input type="email" id="loginEmail" name="loginEmail" placeholder="you@yourbusiness.com" required autocomplete="email">
+          </div>
+          <div class="form-group" style="position:relative">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="loginPassword" placeholder="••••••••••" required autocomplete="current-password">
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+            <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--w60);cursor:pointer">
+              <input type="checkbox" name="rememberMe" style="accent-color:var(--t);width:14px;height:14px"> Remember me
+            </label>
+            <a href="#" class="n-forgot" style="font-size:12px;color:var(--t);text-decoration:none;font-family:'Inter',sans-serif">Forgot password?</a>
+          </div>
+          <!-- Error message — shown by Firebase on bad credentials -->
+          <div id="loginError" style="display:none;font-size:12px;color:#ffb4ab;font-family:'Inter',sans-serif;margin-bottom:16px;padding:10px 14px;background:rgba(255,180,171,.08);border:1px solid rgba(255,180,171,.2)"></div>
+          <button type="submit" class="form-submit" id="loginBtn">Sign In →</button>
+          <p style="text-align:center;margin-top:20px;font-size:12px;color:var(--w30);font-family:'Inter',sans-serif">Not a client yet? <a href="#" onclick="closeLoginModal();openModal();return false;" style="color:var(--t);text-decoration:none">Get Started</a></p>
+        </form>
+      </div>
+      <div class="form-success" id="loginSuccess">
+        <div class="success-icon">✓</div>
+        <h3>Signing you in…</h3>
+        <p>Redirecting to your dashboard.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL JS (from FORM-JAVASCRIPT.js) ─────────────────────── -->
+<script>
+function toggleFaq(btn){const item=btn.closest('.faq-item');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));if(!isOpen)item.classList.add('open');}
+function openModal(){const o=document.getElementById('modalOverlay');o.classList.add('show');document.body.style.overflow='hidden';}
+function closeModal(){const o=document.getElementById('modalOverlay');o.classList.remove('show');document.body.style.overflow='';document.getElementById('contactForm').reset();document.getElementById('formWrapper').classList.remove('hide');document.getElementById('formSuccess').classList.remove('show');}
+document.getElementById('modalOverlay').addEventListener('click',e=>{if(e.target.id==='modalOverlay')closeModal();});
+function handleSubmit(event){
+  event.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  btn.disabled=true;btn.classList.add('loading');
+  const formData={firstName:document.getElementById('firstName').value,lastName:document.getElementById('lastName').value,email:document.getElementById('email').value,company:document.getElementById('company').value,phone:document.getElementById('phone').value,service:document.getElementById('service').value,message:document.getElementById('message').value};
+  fetch('https://formspree.io/f/YOUR_FORM_ID',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(formData)})
+    .then(function(r){
+      btn.disabled=false;btn.classList.remove('loading');
+      if(r.ok){document.getElementById('formWrapper').classList.add('hide');document.getElementById('formSuccess').classList.add('show');}
+      else{throw new Error('Server error: '+r.status);}
+    })
+    .catch(function(){
+      btn.disabled=false;btn.classList.remove('loading');
+      var errEl=document.getElementById('formError');
+      if(!errEl){errEl=document.createElement('p');errEl.id='formError';errEl.style.cssText='color:#ffb4ab;font-size:12px;margin-top:12px;text-align:center;font-family:Inter,sans-serif;';document.getElementById('contactForm').appendChild(errEl);}
+      errEl.textContent='Something went wrong. Please try again or email us directly.';
+    });
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('modalOverlay').classList.contains('show'))closeModal();});
+// Wire ALL CTA buttons to open modal instead of scrolling
+document.querySelectorAll('a[href="#contact"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();openModal();});});
+// Auto-open after 5 seconds
+window.addEventListener('load',()=>{setTimeout(()=>{if(!document.getElementById('modalOverlay').classList.contains('show'))openModal();},5000);});
+// ── Login Modal ──
+function openLoginModal(){const o=document.getElementById('loginOverlay');o.classList.add('show');document.body.style.overflow='hidden';}
+function closeLoginModal(){const o=document.getElementById('loginOverlay');o.classList.remove('show');document.body.style.overflow='';document.getElementById('loginForm').reset();document.getElementById('loginWrapper').classList.remove('hide');document.getElementById('loginSuccess').classList.remove('show');document.getElementById('loginError').style.display='none';}
+document.getElementById('loginOverlay').addEventListener('click',e=>{if(e.target.id==='loginOverlay')closeLoginModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('loginOverlay').classList.contains('show'))closeLoginModal();});
+// ── "Forgot password?" — sends Firebase reset email ──
+document.querySelector('.n-forgot')?.addEventListener('click',function(e){
+  e.preventDefault();
+  const email=document.getElementById('loginEmail').value.trim();
+  if(!email){document.getElementById('loginError').textContent='Enter your email above first.';document.getElementById('loginError').style.display='block';return;}
+  firebase.auth().sendPasswordResetEmail(email)
+    .then(()=>{document.getElementById('loginError').style.color='var(--t)';document.getElementById('loginError').textContent='Reset email sent — check your inbox.';document.getElementById('loginError').style.display='block';})
+    .catch(()=>{document.getElementById('loginError').style.color='#ffb4ab';document.getElementById('loginError').textContent='No account found with that email.';document.getElementById('loginError').style.display='block';});
+});
+// ── Login handler — demo account bypasses Firebase ──
+function handleLogin(event){
+  event.preventDefault();
+  const btn=document.getElementById('loginBtn');
+  const email=document.getElementById('loginEmail').value.trim().toLowerCase();
+  const password=document.getElementById('loginPassword').value;
+  const errorEl=document.getElementById('loginError');
+  errorEl.style.display='none';
+  btn.disabled=true;btn.textContent='Signing in…';
+
+  // ── Demo account: works without Firebase or Airtable setup ──
+  if(email==='contentmatterco@gmail.com' && password==='contentNO1!'){
+    cmSetDemoSession();
+    document.getElementById('loginWrapper').classList.add('hide');
+    document.getElementById('loginSuccess').classList.add('show');
+    setTimeout(()=>{window.location.href='client-dashboard-overview.html';},800);
+    return;
+  }
+
+  // ── Real client accounts — uses Firebase ──
+  firebase.auth().signInWithEmailAndPassword(email,password)
+    .then(()=>{
+      document.getElementById('loginWrapper').classList.add('hide');
+      document.getElementById('loginSuccess').classList.add('show');
+      setTimeout(()=>{window.location.href='client-dashboard-overview.html';},800);
+    })
+    .catch((err)=>{
+      btn.disabled=false;btn.textContent='Sign In →';
+      errorEl.style.color='#ffb4ab';
+      const msgs={'auth/user-not-found':'No account found with this email.','auth/wrong-password':'Incorrect password — try again.','auth/invalid-email':'Please enter a valid email.','auth/too-many-requests':'Too many attempts. Try again in a few minutes.','auth/invalid-credential':'Incorrect email or password.'};
+      errorEl.textContent=msgs[err.code]||'Sign-in failed. Please try again.';
+      errorEl.style.display='block';
+    });
+}
+</script>
+
+<!-- ── Firebase SDKs (compat — no build step needed) ── -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+<script src="js/cm-auth.js"></script>
+<script src="js/cm-demo-data.js"></script>
+
+</body>
+</html>
