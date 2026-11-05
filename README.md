@@ -39,7 +39,7 @@ Links use clean URLs (`/plans`, `/services/beauty`), which Cloudflare Pages, Net
 
 ## Before going live
 
-- [ ] Forms: replace `YOUR_FORM_ID` with your Formspree form ID (or point the `action` at your CRM endpoint). It appears in `index.html`, `matters.html`, the 4 category pages, and all 24 posts.
+- [x] Forms: all forms post to Formspree (`https://formspree.io/f/xvkkllry`). Each sends a hidden `cta_source` (Homepage Hero, Homepage Contact Form, Blog, Newsletter), an email `_subject`, and a `_gotcha` spam honeypot; blog and newsletter forms also send the `page` path.
 - [ ] Free tools: the tool cards are design only until the tool code is added.
 - [ ] Confirm "Founded 2023" in the footer.
 - [ ] The point of sale tablet photo (`assets/img/r-pos.jpg`) shows a vendor name on screen; swap it if you prefer.
