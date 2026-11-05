@@ -717,9 +717,3 @@ nav.main>a,.dd>a,.sub-nav .wrap{font-weight:600}
 /* In article photo on posts */
 .post-fig{margin:36px 0 8px;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/9;background:var(--soft)}
 .post-fig img{display:block;width:100%;height:100%;object-fit:cover}
-/* Airtable lead form embed (assets/lead-form.js) */
-.lead-embed{min-width:0}
-.lead-frame{display:block;width:100%;min-height:900px;border:0;background:transparent;border-radius:12px}
-.lead-alt{margin:12px 0 0;font-size:13px;color:var(--mut);text-align:center}
-.form.lead-card{padding:20px}
-@media (max-width:560px){.lead-frame{min-height:1100px}.form.lead-card{padding:12px}}
